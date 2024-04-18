@@ -87,6 +87,9 @@ extract_and_augment_context <- function(event, config, ...) {
 #' @keywords internal
 #' @export
 extract_context <- function(event, config, ...) {
+  print("extract_context")
+  print("event: ")
+  print(event)
   UseMethod("extract_context")
 }
 

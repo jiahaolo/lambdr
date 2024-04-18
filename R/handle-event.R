@@ -32,6 +32,8 @@ generate_result <- function(event,
                             config = lambda_config(),
                             deserialiser = NULL) {
   print("generate_result")
+  print("Event:")
+  print(event)
   parsed_event_content <- parse_event_content(event, config)
   logger::log_debug("Parsed event body:", prettify_list(parsed_event_content))
   print("Parsed event body:", prettify_list(parsed_event_content))
