@@ -9,6 +9,14 @@
 #' @return list
 #' @keywords internal
 extract_context_from_environment <- function() {
+  print("extract_context_from_environment")
+  print(list(
+    function_name = Sys.getenv("AWS_LAMBDA_FUNCTION_NAME"),
+    function_version = Sys.getenv("AWS_LAMBDA_FUNCTION_VERSION"),
+    memory_limit_in_mb = Sys.getenv("AWS_LAMBDA_FUNCTION_MEMORY_SIZE"),
+    log_group_name = Sys.getenv("AWS_LAMBDA_LOG_GROUP_NAME"),
+    log_stream_name = Sys.getenv("AWS_LAMBDA_LOG_STREAM_NAME")
+  ))
   list(
     function_name = Sys.getenv("AWS_LAMBDA_FUNCTION_NAME"),
     function_version = Sys.getenv("AWS_LAMBDA_FUNCTION_VERSION"),
@@ -35,6 +43,19 @@ extract_context_from_environment <- function() {
 #' @return list
 #' @keywords internal
 extract_and_augment_context <- function(event, config, ...) {
+  print("extract_and_augment_context")
+  print(event)
+  print(config)
+  print(list(
+    standard_context <- c(
+      list(
+        aws_request_id = event$event_headers[["lambda-runtime-aws-request-id"]],
+        invoked_function_arn = event$event_headers[["lambda-runtime-invoked-function-arn"]]
+      ),
+      config$environment_context
+    ),
+    extract_context(event, config, ...)
+  ))
   standard_context <- c(
     list(
       aws_request_id = event$event_headers[["lambda-runtime-aws-request-id"]],
