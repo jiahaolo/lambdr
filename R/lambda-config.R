@@ -106,6 +106,8 @@ get_handler_function_from_env_var <- function(environ) {
       "always defer to the environment variables if available."
     )
   }
+  logger::log_info("Environ: ", environ)
+  print("Environ: ",environ)
 
   logger::log_info("Using handler function ", handler_character)
   if (!exists(handler_character, envir = environ)) {
