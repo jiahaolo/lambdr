@@ -34,9 +34,11 @@ generate_result <- function(event,
   print("generate_result")
   print("Event:")
   print(event)
+  print("Parsing event content")
   parsed_event_content <- parse_event_content(event, config)
   logger::log_debug("Parsed event body:", prettify_list(parsed_event_content))
-  print("Parsed event body:", prettify_list(parsed_event_content))
+  print("Parsed event body:")
+  print(prettify_list(parsed_event_content))
 
   # if the handler function accepts either a `context` argument then calculate
   # the event context and append it to the function arguments.
@@ -45,15 +47,16 @@ generate_result <- function(event,
       parsed_event_content,
       list(context = extract_and_augment_context(event, config))
     )
-    print("event_arguments", event_arguments)
+    # print("event_arguments", event_arguments)
   } else {
     event_arguments <- parsed_event_content
-    print("event_arguments", event_arguments)
+    # print("event_arguments", event_arguments)
   }
 
   result <- do.call(config$handler, args = event_arguments)
   logger::log_debug("Result:", as.character(result))
-  print("Result:", as.character(result))
+  print("Result:")
+  print(as.character(result))
 
   # NULL is a valid result, so we track whether this event has had its result
   # calculated with the `result_calculated` flag
